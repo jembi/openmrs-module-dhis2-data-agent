@@ -1,0 +1,8 @@
+org/openmrs/module/dhis2/data/agent/api/impl/DHIS2DataAgentServiceImpl.class
+org/openmrs/module/dhis2/data/agent/api/dao/DHIS2DataAgentDao.class
+org/openmrs/scheduler/tasks/PullMetadataTask.class
+org/openmrs/scheduler/tasks/PullMetadataUtils.class
+org/openmrs/module/dhis2/data/agent/Item.class
+org/openmrs/module/dhis2/data/agent/DHIS2DataAgentConfig.class
+org/openmrs/scheduler/tasks/URLConnection.class
+org/openmrs/module/dhis2/data/agent/api/DHIS2DataAgentService.class

@@ -1,0 +1,2 @@
+org/openmrs/module/dhis2/data/agent/extension/html/AdminList.class
+org/openmrs/module/dhis2/data/agent/web/controller/DHIS2DataAgentController.class
