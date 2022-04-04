@@ -39,7 +39,7 @@ public class DHIS2DataAgentActivator extends BaseModuleActivator {
 		if (metadataUrl == null) {
 			Context.getAdministrationService().setGlobalProperty("dhis2.data.agent.metadata_url", "");
 		}
-
+		
 	}
 	
 	/**
