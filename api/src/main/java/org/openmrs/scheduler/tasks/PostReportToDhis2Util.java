@@ -8,18 +8,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.logging.Log;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openmrs.api.context.Context;
 
 public class PostReportToDhis2Util {
 	
-	public static List<File> getReportFiles(String pathname, Log log) {
+	private static final Logger LOGGER = LogManager.getLogger(PostReportToDhis2Task.class);
+	
+	public static List<File> getReportFiles(String pathname) {
 		final File folder = new File(pathname);
 		final List<File> fileList = Arrays.asList(folder.listFiles());
 		
 		if (fileList.size() == 0) {
-			log.error("Report folder is empty");
 			try {
+				LOGGER.error("Report folder is empty");
 				throw new Exception("Report folder is empty");
 			}
 			catch (Exception e) {
@@ -29,27 +32,27 @@ public class PostReportToDhis2Util {
 		return fileList;
 	}
 	
-	public static void moveFileToArchive(File filename, String dest, Log log) {
+	public static void moveFileToArchive(File filename, String dest) {
 		try {
 			Path sourcePath = filename.toPath();
 			String targetPath = filename.toString().replace("reportDataBox", dest);
 			Files.move(sourcePath, Paths.get(targetPath));
-			log.info("File has been moved to Archive ");
+			LOGGER.info("File has been moved to Archive ");
 			
 		}
 		catch (Exception e) {
-			log.error("File couldn't be moved to archive");
+			LOGGER.error("File couldn't be moved to archive");
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public static void readReportAndPostTask(List<File> reportFiles, String dest, Log log) {
+	public static void readReportAndPostTask(List<File> reportFiles, String dest) {
 		String POST_URL = Context.getAdministrationService().getGlobalProperty("dhis2.data.agent.iol_endpoint_url");
 		String jsonData = "";
 		
 		for (File files : reportFiles) {
-			log.info("files: " + files);
+			LOGGER.info("files: " + files);
 			try {
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(files));
 				String line;
@@ -71,6 +74,7 @@ public class PostReportToDhis2Util {
 				os.flush();
 				
 				if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+					LOGGER.error("Failed to Post to Dhis2: HTTP error code: " + conn.getResponseCode());
 					throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
 				}
 				
@@ -78,12 +82,12 @@ public class PostReportToDhis2Util {
 				
 				jsonData = "";
 				String output;
-				log.info("Output from Server .... \n");
+				LOGGER.info("Output from Server .... \n");
 				while ((output = br.readLine()) != null) {
 					System.out.println(output);
 				}
 				conn.disconnect();
-				moveFileToArchive(files, dest, log);
+				moveFileToArchive(files, dest);
 			}
 			catch (Exception e) {
 				e.printStackTrace();
