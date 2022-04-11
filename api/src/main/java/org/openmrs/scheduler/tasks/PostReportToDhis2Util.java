@@ -34,9 +34,12 @@ public class PostReportToDhis2Util {
 	
 	public static void moveFileToArchive(File filename, String dest) {
 		try {
-			Path sourcePath = filename.toPath();
-			String targetPath = filename.toString().replace("reportDataBox", dest);
-			Files.move(sourcePath, Paths.get(targetPath));
+			String sourcePath = filename.toString();
+			String jsonFile = sourcePath.substring(sourcePath.lastIndexOf("/") + 1);
+			String targetPath = dest + "/" + jsonFile;
+			LOGGER.error("source path: " + sourcePath);
+			LOGGER.error("target path: " + targetPath);
+			Files.move(Paths.get(sourcePath), Paths.get(targetPath));
 			LOGGER.info("File has been moved to Archive ");
 			
 		}
@@ -68,6 +71,7 @@ public class PostReportToDhis2Util {
 				conn.setRequestProperty("Content-Type", "application/json");
 				
 				String input = jsonData;
+				LOGGER.error("json: " + input);
 				
 				OutputStream os = conn.getOutputStream();
 				os.write(input.getBytes());
@@ -79,6 +83,7 @@ public class PostReportToDhis2Util {
 				}
 				
 				BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+				Thread.sleep(5000);
 				
 				jsonData = "";
 				String output;
@@ -87,6 +92,7 @@ public class PostReportToDhis2Util {
 					System.out.println(output);
 				}
 				conn.disconnect();
+				
 				moveFileToArchive(files, dest);
 			}
 			catch (Exception e) {
