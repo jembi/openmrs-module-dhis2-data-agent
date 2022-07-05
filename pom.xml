@@ -9,18 +9,18 @@
     </parent>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>dhis2.data.agent</artifactId>
+	<artifactId>dhis2dataagent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>DHIS2 Data Agent</name>
-	<description>The data agent calculates aggregated data elements and posts them to DHIS2 through the interoperability layer (IOL)</description>
+	<description>no description</description>
 
 	<url>https://wiki.openmrs.org/x/FQ4z</url>
 
 	<scm>
-		<connection>scm:git:git@github.com:openmrs/openmrs-module-dhis2.data.agent.git</connection>
-		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-dhis2.data.agent.git</developerConnection>
-		<url>https://github.com/openmrs/openmrs-module-dhis2.data.agent/</url>
+		<connection>scm:git:git@github.com:openmrs/openmrs-module-dhis2dataagent.git</connection>
+		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-dhis2dataagent.git</developerConnection>
+		<url>https://github.com/openmrs/openmrs-module-dhis2dataagent/</url>
 	</scm>
 
 	<modules>

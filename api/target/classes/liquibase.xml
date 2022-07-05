@@ -15,15 +15,15 @@
  
  	<!-- Uncomment the changeset below if you want to make the Item class persistable, see also Item and DHIS2DataAgentDaoTest -->
  	<!--
-	<changeSet id="dhis2.data.agent-2016-08-02-12-21" author="raff">
+	<changeSet id="dhis2dataagent-2016-08-02-12-21" author="raff">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="dhis2.data.agent_item"/></not>
+			<not><tableExists tableName="dhis2dataagent_item"/></not>
 		</preConditions>
 		<comment>
-			Creating the dhis2.data.agent_item table
+			Creating the dhis2dataagent_item table
 		</comment>
-		<createTable tableName="dhis2.data.agent_item">
-			<column name="dhis2.data.agent_item_id" type="int" autoIncrement="true">
+		<createTable tableName="dhis2dataagent_item">
+			<column name="dhis2dataagent_item_id" type="int" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false"/>
 			</column>
 			<column name="uuid" type="char(38)">
@@ -32,7 +32,7 @@
 			<column name="owner" type="int" />
 			<column name="description" type="varchar(255)" />
 		</createTable>
-        <addForeignKeyConstraint constraintName="dhis2.data.agent_item_owner_fk" baseTableName="dhis2.data.agent_item" baseColumnNames="owner"  referencedTableName="users"
+        <addForeignKeyConstraint constraintName="dhis2dataagent_item_owner_fk" baseTableName="dhis2dataagent_item" baseColumnNames="owner"  referencedTableName="users"
                                  referencedColumnNames="user_id" />
     </changeSet> -->
  

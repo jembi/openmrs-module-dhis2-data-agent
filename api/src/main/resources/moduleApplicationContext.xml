@@ -23,18 +23,18 @@
   		    http://www.springframework.org/schema/util
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <context:component-scan base-package="org.openmrs.module.dhis2.data.agent" />
+    <context:component-scan base-package="org.openmrs.module.dhis2dataagent" />
 
     <!-- Wraps DHIS2DataAgentService methods in DB transactions and OpenMRS interceptors,
     which set audit info like dateCreated, changedBy, etc.-->
-    <bean id="dhis2.data.agent.DHIS2DataAgentService"
+    <bean id="dhis2dataagent.DHIS2DataAgentService"
             class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager">
             <ref bean="transactionManager" />
         </property>
         <property name="target">
-            <bean class="org.openmrs.module.dhis2.data.agent.api.impl.DHIS2DataAgentServiceImpl">
-                <property name="dao" ref="dhis2.data.agent.DHIS2DataAgentDao" />
+            <bean class="org.openmrs.module.dhis2dataagent.api.impl.DHIS2DataAgentServiceImpl">
+                <property name="dao" ref="dhis2dataagent.DHIS2DataAgentDao" />
             </bean>
         </property>
         <property name="preInterceptors">
@@ -50,8 +50,8 @@
     <bean parent="serviceContext">
         <property name="moduleService">
             <list>
-                <value>org.openmrs.module.dhis2.data.agent.api.DHIS2DataAgentService</value>
-                <ref bean="dhis2.data.agent.DHIS2DataAgentService" />
+                <value>org.openmrs.module.dhis2dataagent.api.DHIS2DataAgentService</value>
+                <ref bean="dhis2dataagent.DHIS2DataAgentService" />
             </list>
         </property>
     </bean>

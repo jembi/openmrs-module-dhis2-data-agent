@@ -1,1 +1,2 @@
-/bahmni/openmrs-module-dhis2-data-agent/omod/src/test/java/org/openmrs/module/dhis2/data/agent/AdminListExtensionTest.java
+/bahmni/openmrs-module-dhis2-data-agent/omod/src/test/java/org/openmrs/module/dhis2dataagent/AdminListExtensionTest.java
+/bahmni/openmrs-module-dhis2-data-agent/omod/src/test/java/org/openmrs/utils/TreeTest.java

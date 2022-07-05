@@ -1,2 +1,2 @@
-/bahmni/openmrs-module-dhis2-data-agent/api/src/test/java/org/openmrs/module/dhis2/data/agent/DHIS2DataAgentServiceTest.java
-/bahmni/openmrs-module-dhis2-data-agent/api/src/test/java/org/openmrs/module/dhis2/data/agent/dao/DHIS2DataAgentDaoTest.java
+/bahmni/openmrs-module-dhis2-data-agent/api/src/test/java/org/openmrs/module/dhis2dataagent/dao/DHIS2DataAgentDaoTest.java
+/bahmni/openmrs-module-dhis2-data-agent/api/src/test/java/org/openmrs/module/dhis2dataagent/DHIS2DataAgentServiceTest.java
