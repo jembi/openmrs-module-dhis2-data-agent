@@ -1,5 +1,8 @@
 package org.openmrs.module.dhis2dataagent.web.controller;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +46,7 @@ public class ApiController {
 		return mapper.writeValueAsString(reportNames);
 	}
 	
-	@RequestMapping(value = "module/dhis2dataagent/generateReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "module/dhis2dataagent/generateReport", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody()
 	public String getGenerateReport(@RequestParam int reportIndex, @RequestParam String startDate,
 	        @RequestParam String endDate) throws Exception {
@@ -61,7 +64,9 @@ public class ApiController {
 		    reportConfigJson);
 		
 		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(reportData);
+		final byte[] data = mapper.writeValueAsBytes(reportData);
+		String json = new String(data, "UTF-8");
+		return json; // mapper.writeValueAsString(reportData);
 	}
 	
 	@RequestMapping(value = "module/dhis2dataagent/config", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -99,7 +104,7 @@ public class ApiController {
 	
 	@RequestMapping(value = "module/dhis2dataagent/save-report", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody()
-	public String saveReport(@RequestBody ReportData reportData) throws Exception {
+	public void saveReport(@RequestBody ReportData reportData) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		String reportFolder = Context.getAdministrationService().getGlobalProperty("dhis2.data.agent.report_folder");
@@ -107,13 +112,14 @@ public class ApiController {
 		String reportString = mapper.writeValueAsString(reportData);
 		
 		try {
-			PrintWriter out = new PrintWriter(reportFolder + "/" + reportData.reportName + "-" + reportData.period + ".json");
+			OutputStream os = new FileOutputStream(reportFolder + "/" + reportData.reportName + "-" + reportData.period
+			        + ".json");
+			PrintWriter out = new PrintWriter(new OutputStreamWriter(os, "UTF-8"));
 			out.println(reportString);
 			out.close();
-			return reportFolder + "/" + reportData.reportName + "-" + reportData.period + ".json" + "|" + reportString;
 		}
 		catch (Exception e) {
-			return e.getMessage() + " " + e.getCause().getMessage();
+			e.printStackTrace();
 		}
 	}
 }

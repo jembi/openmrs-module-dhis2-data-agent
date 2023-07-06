@@ -2,7 +2,9 @@ package org.openmrs.module.dhis2dataagent.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,9 +25,9 @@ import org.openmrs.module.dhis2dataagent.models.ReportDataValueWithLabels;
 public class Utils {
 	
 	public static Reader getMetadataReader(String metadataFilePath) throws Exception {
-		File file = new File(metadataFilePath);
-		FileReader fileReader = new FileReader(file);
-		return new BufferedReader(fileReader);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(metadataFilePath),
+		        "UTF-8"));//new FileReader(file);
+		return bufferedReader;
 	}
 	
 	public static JSONObject getMetadataConfig() throws Exception {

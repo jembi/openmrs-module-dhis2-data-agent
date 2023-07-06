@@ -70,6 +70,10 @@
 
     getListOfReports("${pageContext.request.contextPath}/module/dhis2dataagent", "${pageContext.request.contextPath}/moduleResources/dhis2dataagent/images").then(reportNames => {
       $('#report_list').html(reportNames);
+
+      for(let i=0;i<1000;i++) {
+        $(`#loading-icon-${i}`).hide();
+      }
     });
 
   </script>

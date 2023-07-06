@@ -2,10 +2,13 @@ package org.openmrs.scheduler.tasks;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -27,9 +30,10 @@ public class PullMetadataUtils {
 	}
 	
 	public static void saveTextToFile(String text, String fileName) throws IOException {
-		FileWriter fileWriter = new FileWriter(fileName);
-		fileWriter.write(text);
-		fileWriter.close();
+		OutputStream os = new FileOutputStream(fileName);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(os, "UTF-8"));
+		out.println(text);
+		out.close();
 	}
 	
 	public static boolean taskPropertiesAreValid(String metadataUrl, String metadataFolder, Log log) {

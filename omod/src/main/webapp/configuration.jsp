@@ -43,18 +43,18 @@
         </div>
 
         <div class="form-field ">
-            <div class="section-title form-label">Path to metadata folder:</div>
-            <input id="path-metadata-folder" type="text" class="period">
-        </div>
-
-        <div class="form-field ">
-            <div class="section-title form-label">URL to pull metadata:</div>
-            <input id="metadata-url" type="text" class="period">
+            <div class="section-title form-label">Path to report folder:</div>
+            <input id="path-report-folder" type="text" class="period">
         </div>
 
         <div class="form-field ">
             <div class="section-title form-label">Path to archive folder:</div>
             <input id="path-archive-folder" type="text" class="period">
+        </div>
+
+        <div class="form-field ">
+            <div class="section-title form-label">URL to pull metadata:</div>
+            <input id="metadata-url" type="text" class="period">
         </div>
 
         <div class="form-field ">

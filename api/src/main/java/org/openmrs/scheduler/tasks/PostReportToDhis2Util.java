@@ -3,6 +3,7 @@ package org.openmrs.scheduler.tasks;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -57,7 +58,8 @@ public class PostReportToDhis2Util {
 		for (File files : reportFiles) {
 			LOGGER.info("files: " + files);
 			try {
-				BufferedReader bufferedReader = new BufferedReader(new FileReader(files));
+				BufferedReader bufferedReader = new BufferedReader(
+				        new InputStreamReader(new FileInputStream(files), "UTF-8"));
 				String line;
 				while ((line = bufferedReader.readLine()) != null) {
 					jsonData += line + "\n";
@@ -74,15 +76,19 @@ public class PostReportToDhis2Util {
 				LOGGER.error("json: " + input);
 				
 				OutputStream os = conn.getOutputStream();
-				os.write(input.getBytes());
-				os.flush();
+				PrintWriter out = new PrintWriter(new OutputStreamWriter(os, "UTF-8"));
+				out.println(input);
+				out.close();
+				
+				// os.write(input.getBytes());
+				// os.flush();
 				
 				if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
 					LOGGER.error("Failed to Post to Dhis2: HTTP error code: " + conn.getResponseCode());
 					throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
 				}
 				
-				BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
 				Thread.sleep(5000);
 				
 				jsonData = "";
