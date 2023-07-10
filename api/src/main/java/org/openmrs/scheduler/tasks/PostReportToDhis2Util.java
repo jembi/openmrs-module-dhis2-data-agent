@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.log4j.LogManager;
@@ -40,7 +41,7 @@ public class PostReportToDhis2Util {
 			String targetPath = dest + "/" + jsonFile;
 			LOGGER.error("source path: " + sourcePath);
 			LOGGER.error("target path: " + targetPath);
-			Files.move(Paths.get(sourcePath), Paths.get(targetPath));
+			Files.move(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
 			LOGGER.info("File has been moved to Archive ");
 			
 		}
