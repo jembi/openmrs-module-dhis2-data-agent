@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -111,9 +112,11 @@ public class ApiController {
 		
 		String reportString = mapper.writeValueAsString(reportData);
 		
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		
 		try {
 			OutputStream os = new FileOutputStream(reportFolder + "/" + reportData.reportName + "-" + reportData.period
-			        + ".json");
+			        + "-" + timestamp.getTime() + ".json");
 			PrintWriter out = new PrintWriter(new OutputStreamWriter(os, "UTF-8"));
 			out.println(reportString);
 			out.close();

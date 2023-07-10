@@ -7,10 +7,10 @@ org/openmrs/module/dhis2dataagent/models/ReportDataElement.class
 org/openmrs/module/dhis2dataagent/models/ReportDataElementWithLabels.class
 org/openmrs/module/dhis2dataagent/web/controller/ConfigurationController.class
 org/openmrs/module/dhis2dataagent/models/ReportDataWithLabels.class
+org/openmrs/module/dhis2dataagent/models/ReportDataValueWithLabels.class
 org/openmrs/module/dhis2dataagent/utils/TreeNode.class
 org/openmrs/module/dhis2dataagent/utils/Utils.class
-org/openmrs/module/dhis2dataagent/models/ReportDataValueWithLabels.class
-org/openmrs/module/dhis2dataagent/web/controller/ApiController.class
 org/openmrs/module/dhis2dataagent/models/ReportDataDisaggregation.class
+org/openmrs/module/dhis2dataagent/web/controller/ApiController.class
 org/openmrs/module/dhis2dataagent/models/UiConfig.class
 org/openmrs/module/dhis2dataagent/extension/html/AdminList.class
