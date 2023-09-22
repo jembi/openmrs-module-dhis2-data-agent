@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,6 +26,8 @@ import org.openmrs.module.dhis2dataagent.models.ReportDataElementWithLabels;
 import org.openmrs.module.dhis2dataagent.models.ReportDataValueWithLabels;
 
 public class Utils {
+	
+	private static final Logger LOGGER = LogManager.getLogger(Utils.class);
 	
 	public static Reader getMetadataReader(String metadataFilePath) throws Exception {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(metadataFilePath),
@@ -128,7 +133,13 @@ public class Utils {
 				query = query.replace("#endDate#", endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				
 				for (ReportParameter template : d) {
+					if (template.value.equals("H")) {
+						query = query.replace("#gender#", "M");
+					}
 					query = query.replace("#" + template.key + "#", template.value);
+					LOGGER.error("Sql query 1:" + query);
+					// LOGGER.error("values:" + template.value);
+					
 				}
 				
 				double value = evaluateQuery(query);
